@@ -1,8 +1,7 @@
-//requires
 const fs = require('fs'),
       path = require('path');
 
-// Objeto que retorna la data obtenida desde el archivo .json
+
 module.exports = {
     getDataAll: () => {
             var self = this;
@@ -12,6 +11,6 @@ module.exports = {
                     if (err) reject(err)
                     resolve(JSON.parse(readData));
                 });
-            }); //fin Promise
-        } //fin getDataAll
-}; //fin obj
+            });
+        }
+}; 

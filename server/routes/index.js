@@ -1,9 +1,9 @@
-//requires
+
 const storage = require('../storage'),
       path = require('path');
 
 const routes = (app) => {
-    // returns all data
+
     app.get('/search', (req, res) => {
         storage.getDataAll()
             .then((data) => {
@@ -12,9 +12,9 @@ const routes = (app) => {
             .catch((err) => {
                 res.json({ "error": true, "datos": err });
             });
-    }); // ./search
+    });
 
-    // return filter options for selectors
+
     app.get('/filteroptions', (req, res) => {
         storage.getDataAll()
             .then((data) => {
@@ -33,9 +33,9 @@ const routes = (app) => {
             .catch((err) => {
                 res.json({ "error": true, "err": err });
             });
-    }); // ./filteroptions
+    });
 
-    //returns filtered data
+
     app.get('/ciudad/:ciudadId/tipo/:tipoId/desde/:desdeVal/hasta/:hastaVal', (req, res) => {
         let params = req.params;
         let datos = [];
@@ -45,11 +45,11 @@ const routes = (app) => {
                 var arr2 = [];
                 var datos = [];
 
-                aux = data.slice(); //crea una copia de los datos
+                aux = data.slice();
 
-                //valida si se seleccionaron ciudades
+
                 if (params.ciudadId != "todas") {
-                    //recorre y filtra cada una de las ciudades
+
                     aux.forEach((key, idx) => {
                         if (key.Ciudad == params.ciudadId) {
                             arr2.push(key);
@@ -59,14 +59,14 @@ const routes = (app) => {
                     arr2 = aux.slice();
                 }
 
-                //reinicia los array auxiliares
+
                 aux = [];
                 aux = arr2.slice();
                 arr2 = [];
 
-                //valida si se selecciono un tipo en especifico
+
                 if (params.tipoId != "todos") {
-                    //valida y filtra segun el tipo
+
                     aux.forEach((key, idx) => {
                         if (key.Tipo == params.tipoId) { arr2.push(key); }
                     });
@@ -74,7 +74,7 @@ const routes = (app) => {
                     arr2 = aux.slice();
                 }
 
-                // recorre y filtra si esta entre los valores seleccionados
+                
                 arr2.forEach((key, idx) => {
                     let valor = parseInt(key.Precio.replace("$", "").replace(",", ""));
                     if (valor >= parseInt(params.desdeVal) && valor <= parseInt(params.hastaVal)) {
